@@ -17,6 +17,8 @@ https://github.com/Caligatio/jsSHA. The package is available through NPM. Instal
 	npm install jssha
 
 This example uses XMLHttpRequest for the API request. In the examples after this one we will show the logic using Fetch.
+It assumes you have numbered container, title, summary, img and price fields in your HTML. It will add the recommended 
+values to their corresponding fields in the DOM.
 
 ::
 
@@ -42,13 +44,21 @@ This example uses XMLHttpRequest for the API request. In the examples after this
 		req.send(JSON.stringify(params));
 		req.onreadystatechange = function () {
 			var ans = JSON.parse(req.responseText)['result']
-			document.getElementById('test').innerHTML = ans[0]['title'];
-			document.getElementById('img').src = ans[0]['img'];
+			for (let i =0; i <= NUMBER_OF_ITEMS; i++) {
+				document.getElementById('container_'+i).href = ans[0]['url'];
+				document.getElementById('title_'+i).innerHTML = ans[0]['title'];
+				document.getElementById('summary'+i).innerHTML = ans[0]['summary'];
+				document.getElementById('img_'+i).src = ans[0]['img'];
+				document.getElementById('price_'+i).innerHTML = "€"+ans[0]['price'];
+			}
 		}
 	}
 
 	
 .. glossary::
+	
+	API_KEY/API_SECRET:
+		These are the keys generated on your dashboard. They are used for authentication purposes.
 	
 	ident:
 		This is the user identifier passed to your web page from the user's extension. It's used to identify the user internally.
