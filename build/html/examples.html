@@ -81,7 +81,7 @@
             
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#javascript-example">Javascript example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#simple-javascript-xhr-example">Simple Javascript/XHR-example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
 </ul>
 
@@ -150,9 +150,16 @@
   <div class="section" id="examples">
 <h1>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h1>
 </div>
-<div class="section" id="javascript-example">
-<h1>Javascript example<a class="headerlink" href="#javascript-example" title="Permalink to this headline">¶</a></h1>
-<p>Here’s an example in javascript of how to implement our API into your service:</p>
+<div class="section" id="simple-javascript-xhr-example">
+<h1>Simple Javascript/XHR-example<a class="headerlink" href="#simple-javascript-xhr-example" title="Permalink to this headline">¶</a></h1>
+<p>This javascript example shows how to interact with a Jibia user and our API. In this example Jibia recommendations are only used
+when the current visitor is connected to Jibia. The examples that follow go into using or services even when the user is not
+using the Jibia extension. Because we use HMAC authentication we need logic for making our hashes. In this example we use
+<a class="reference external" href="https://github.com/Caligatio/jsSHA">https://github.com/Caligatio/jsSHA</a>. The package is available through NPM. Install it with the following command:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">npm</span> <span class="n">install</span> <span class="n">jssha</span>
+</pre></div>
+</div>
+<p>This example uses XMLHttpRequest for the API request. In the examples after this one we will show the logic using Fetch.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">window</span><span class="o">.</span><span class="n">onload</span> <span class="o">=</span> <span class="n">addevent</span><span class="p">;</span>
 <span class="n">function</span> <span class="n">addevent</span> <span class="p">()</span> <span class="p">{</span>
         <span class="n">window</span><span class="o">.</span><span class="n">onmessage</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">event</span><span class="p">){</span>
@@ -160,10 +167,18 @@
         <span class="p">};</span>
 <span class="p">}</span>
 <span class="n">recom</span> <span class="o">=</span> <span class="p">(</span><span class="n">ident</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="n">var</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">Date</span><span class="o">.</span><span class="n">now</span><span class="p">();</span>
+        <span class="n">var</span> <span class="n">shaObj</span> <span class="o">=</span> <span class="n">new</span> <span class="n">jsSHA</span><span class="p">(</span><span class="s2">&quot;SHA-1&quot;</span><span class="p">,</span> <span class="s2">&quot;TEXT&quot;</span><span class="p">);</span>
+        <span class="n">shaObj</span><span class="o">.</span><span class="n">setHMACKey</span><span class="p">(</span><span class="n">API_SECRET</span><span class="p">,</span> <span class="s2">&quot;TEXT&quot;</span><span class="p">);</span>
+        <span class="n">shaObj</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">API_KEY</span><span class="o">+</span><span class="n">ts</span><span class="p">);</span>
+        <span class="n">var</span> <span class="n">hmac</span> <span class="o">=</span> <span class="n">shaObj</span><span class="o">.</span><span class="n">getHMAC</span><span class="p">(</span><span class="s2">&quot;HEX&quot;</span><span class="p">);</span>
         <span class="n">var</span> <span class="n">req</span> <span class="o">=</span> <span class="n">new</span> <span class="n">XMLHttpRequest</span><span class="p">();</span>
         <span class="n">req</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="n">decodeURIComponent</span><span class="p">(</span><span class="s1">&#39;http://146.185.174.192:80/api/recommend&#39;</span><span class="p">),</span> <span class="n">true</span><span class="p">);</span>
-        <span class="n">var</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;identifier&quot;</span><span class="p">:</span> <span class="n">ident</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span> <span class="p">:</span> <span class="n">NUMBER_OF_ITEMS</span><span class="p">,</span> <span class="s2">&quot;product_id&quot;</span> <span class="p">:</span> <span class="n">ID_OF_CURRENT_PRODUCT</span><span class="p">,</span> <span class="s2">&quot;language&quot;</span><span class="p">:</span> <span class="n">LANGUAGE</span><span class="p">};</span>
+        <span class="n">var</span> <span class="n">params</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;identifier&quot;</span><span class="p">:</span> <span class="n">ident</span><span class="p">,</span> <span class="s2">&quot;n&quot;</span> <span class="p">:</span> <span class="n">NUMBER_OF_ITEMS</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">:</span> <span class="n">NUMBER_OF_CLUSTERS</span><span class="p">,</span>
+                <span class="s2">&quot;product_id&quot;</span> <span class="p">:</span> <span class="n">ID_OF_CURRENT_PRODUCT</span><span class="p">,</span> <span class="s2">&quot;language&quot;</span><span class="p">:</span> <span class="n">LANGUAGE</span><span class="p">,</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span>
+                <span class="n">API_KEY</span><span class="p">,</span> <span class="s2">&quot;nonce&quot;</span><span class="p">:</span><span class="n">ts</span><span class="p">};</span>
         <span class="n">req</span><span class="o">.</span><span class="n">setRequestHeader</span><span class="p">(</span><span class="s1">&#39;Content-Type&#39;</span><span class="p">,</span> <span class="s1">&#39;application/json; charset=UTF-8&#39;</span><span class="p">);</span>
+        <span class="n">req</span><span class="o">.</span><span class="n">setRequestHeader</span><span class="p">(</span><span class="s1">&#39;sign&#39;</span><span class="p">,</span> <span class="n">hmac</span><span class="p">);</span>
         <span class="n">req</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">JSON</span><span class="o">.</span><span class="n">stringify</span><span class="p">(</span><span class="n">params</span><span class="p">));</span>
         <span class="n">req</span><span class="o">.</span><span class="n">onreadystatechange</span> <span class="o">=</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span>
                 <span class="n">var</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">req</span><span class="o">.</span><span class="n">responseText</span><span class="p">)[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span>
@@ -173,6 +188,21 @@
 <span class="p">}</span>
 </pre></div>
 </div>
+<dl class="glossary docutils">
+<dt id="term-ident">ident:</dt>
+<dd>This is the user identifier passed to your web page from the user’s extension. It’s used to identify the user internally.</dd>
+<dt id="term-number-of-items">NUMBER_OF_ITEMS:</dt>
+<dd>The amount of recommendation-items you wish to display</dd>
+<dt id="term-number-of-clusters">NUMBER_OF_CLUSTERS:</dt>
+<dd>The amount of the users “interest-clusters” being used for the recommendation. A higher number will result in more general
+recommendations, while a lower number will result in the recommendations being more specific to the user’s biggest interests.</dd>
+<dt id="term-id-of-current-product">ID_OF_CURRENT_PRODUCT:</dt>
+<dd>The identifier that represents the product the user is currently viewing. This should correspons to the identifiers in
+the uploaded product-csv. If you haven’t yet uploaded this csv yet, you can do this at <a class="reference external" href="http://jibia.nl/business/dashboard">http://jibia.nl/business/dashboard</a>.</dd>
+<dt id="term-language">LANGUAGE:</dt>
+<dd>The language of your website. Currently only Dutch and English are supported. We will start supporting more languages in the
+near future.</dd>
+</dl>
 </div>
 
 
