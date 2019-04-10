@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
    
-Examples
+Search
 ====================================   
 
 Simple HTML Example
@@ -28,4 +28,15 @@ the bottom of your html document. Insert your own jibia search token in the toke
 <script src="js/jibia_search.js" token="YOUR TOKEN HERE"/>
 
 The only thing left to do now is downloading jibia_search.js and adding this file to your js folder. Once this is done the
-search bar should be up and running
+search bar should be up and running. 
+
+Besides the token parameter, several other parameters can be set in the script tag above. These are detailed below.
+
+.. glossary::
+
+	styled:
+		This value can be set to true or false.  If this is set to true the search results will use predefined style.
+		The parameter defaults to true.
+
+	result_classname:
+		This parameter can be set to define the class name for autocomplete suggestions. This parameter defaults to "search_result".

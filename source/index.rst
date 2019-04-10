@@ -16,5 +16,5 @@ If you have any questions you can send them to info@jibia.nl or join our Slack c
 .. toctree::
    :maxdepth: 2
    
-   examples
+   search
    contact
