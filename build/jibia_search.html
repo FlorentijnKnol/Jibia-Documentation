@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Recommendations" href="recommendations.html" />
+    <link rel="next" title="Contact" href="contact.html" />
     <link rel="prev" title="Welcome to Jibia’s documentation!" href="index.html" /> 
 
   
@@ -82,8 +82,7 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Search</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#simple-html-example">Simple HTML Example</a></li>
-<li class="toctree-l1"><a class="reference internal" href="recommendations.html">Recommendations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="recommendations.html#simple-html-example">Simple HTML Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#example-of-manual-autocomplete-handling">Example of manual autocomplete handling</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
 </ul>
 
@@ -177,6 +176,37 @@ search bar should be up and running.</p>
 <dd>This parameter can be set to define the class name for autocomplete suggestions. This parameter defaults to “search_result”.</dd>
 </dl>
 </div>
+<div class="section" id="example-of-manual-autocomplete-handling">
+<h1>Example of manual autocomplete handling<a class="headerlink" href="#example-of-manual-autocomplete-handling" title="Permalink to this headline">¶</a></h1>
+<p>If you wish to have more control over what happens under the hood, instead you can write the logic for this yourself.
+To do this you first have to load your product feed into Jibia. You can do that with the following request:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd><dl class="first last docutils">
+<dt>curl -X POST </dt>
+<dd><a class="reference external" href="https://api.jibia.nl/api/initialize_search">https://api.jibia.nl/api/initialize_search</a> -H ‘Content-Type: application/json’ -d ‘{“feed_url”: FEED_URL}’</dd>
+</dl>
+</dd>
+</dl>
+<dl class="glossary docutils">
+<dt id="term-feed-url">feed_url</dt>
+<dd>The URL to your product feed.</dd>
+</dl>
+<p>This request returns a token you can use for the search. Save this token somewhere. It might take several minutes before your feed is fully initialized.</p>
+<p>The autocomplete can be called with the following request:</p>
+<dl class="docutils">
+<dt>curl -X GET </dt>
+<dd>‘<a class="reference external" href="https://api.jibia.nl/api/do_search">https://api.jibia.nl/api/do_search</a>?query={QUERY}&amp;token={TOKEN}&amp;n={N}’</dd>
+</dl>
+<dl class="glossary docutils">
+<dt id="term-query">query</dt>
+<dd>The query for the autocomplete.</dd>
+<dt id="term-token">token</dt>
+<dd><p class="first">The token from the response of your call to initialize_search</p>
+<p class="last">The amount of autocomplete results</p>
+</dd>
+</dl>
+</div>
 
 
            </div>
@@ -186,7 +216,7 @@ search bar should be up and running.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="recommendations.html" class="btn btn-neutral float-right" title="Recommendations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="contact.html" class="btn btn-neutral float-right" title="Contact" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="index.html" class="btn btn-neutral" title="Welcome to Jibia’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

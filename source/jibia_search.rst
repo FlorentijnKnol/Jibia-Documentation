@@ -39,3 +39,41 @@ Besides the token parameter, several other parameters can be set in the script t
 
     result_classname
       This parameter can be set to define the class name for autocomplete suggestions. This parameter defaults to "search_result".
+	  
+
+Example of manual autocomplete handling
+=============================
+If you wish to have more control over what happens under the hood, instead you can write the logic for this yourself.
+To do this you first have to load your product feed into Jibia. You can do that with the following request:
+
+::
+	curl -X POST \
+	  https://api.jibia.nl/api/initialize_search \
+	  -H 'Content-Type: application/json' \
+	  -d '{"feed_url": FEED_URL}'
+	
+.. glossary::
+
+    feed_url
+      The URL to your product feed.
+	  
+This request returns a token you can use for the search. Save this token somewhere. It might take several minutes before your feed is fully initialized.
+
+The autocomplete can be called with the following request:
+
+::
+
+curl -X GET \
+  'https://api.jibia.nl/api/do_search?query={QUERY}&token={TOKEN}&n={N}' 
+
+.. glossary::
+
+    query
+      The query for the autocomplete.
+
+    token
+	  The token from the response of your call to initialize_search
+	  
+	n
+	  The amount of autocomplete results
+	 
