@@ -43,10 +43,12 @@ Besides the token parameter, several other parameters can be set in the script t
 
 Example of manual autocomplete handling
 =============================
+
 If you wish to have more control over what happens under the hood, instead you can write the logic for this yourself.
 To do this you first have to load your product feed into Jibia. You can do that with the following request:
 
 ::
+
 	curl -X POST \
 	  https://api.jibia.nl/api/initialize_search \
 	  -H 'Content-Type: application/json' \
@@ -63,8 +65,8 @@ The autocomplete can be called with the following request:
 
 ::
 
-curl -X GET \
-  'https://api.jibia.nl/api/do_search?query={QUERY}&token={TOKEN}&n={N}' 
+	curl -X GET \
+	  'https://api.jibia.nl/api/do_search?query={QUERY}&token={TOKEN}&n={N}' 
 
 .. glossary::
 
@@ -76,4 +78,6 @@ curl -X GET \
 	  
 	n
 	  The amount of autocomplete results
+	  
+This request will return a list of products.
 	 

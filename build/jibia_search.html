@@ -180,24 +180,22 @@ search bar should be up and running.</p>
 <h1>Example of manual autocomplete handling<a class="headerlink" href="#example-of-manual-autocomplete-handling" title="Permalink to this headline">¶</a></h1>
 <p>If you wish to have more control over what happens under the hood, instead you can write the logic for this yourself.
 To do this you first have to load your product feed into Jibia. You can do that with the following request:</p>
-<dl class="docutils">
-<dt>::</dt>
-<dd><dl class="first last docutils">
-<dt>curl -X POST </dt>
-<dd><a class="reference external" href="https://api.jibia.nl/api/initialize_search">https://api.jibia.nl/api/initialize_search</a> -H ‘Content-Type: application/json’ -d ‘{“feed_url”: FEED_URL}’</dd>
-</dl>
-</dd>
-</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> \
+  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">api</span><span class="o">.</span><span class="n">jibia</span><span class="o">.</span><span class="n">nl</span><span class="o">/</span><span class="n">api</span><span class="o">/</span><span class="n">initialize_search</span> \
+  <span class="o">-</span><span class="n">H</span> <span class="s1">&#39;Content-Type: application/json&#39;</span> \
+  <span class="o">-</span><span class="n">d</span> <span class="s1">&#39;{&quot;feed_url&quot;: FEED_URL}&#39;</span>
+</pre></div>
+</div>
 <dl class="glossary docutils">
 <dt id="term-feed-url">feed_url</dt>
 <dd>The URL to your product feed.</dd>
 </dl>
 <p>This request returns a token you can use for the search. Save this token somewhere. It might take several minutes before your feed is fully initialized.</p>
 <p>The autocomplete can be called with the following request:</p>
-<dl class="docutils">
-<dt>curl -X GET </dt>
-<dd>‘<a class="reference external" href="https://api.jibia.nl/api/do_search">https://api.jibia.nl/api/do_search</a>?query={QUERY}&amp;token={TOKEN}&amp;n={N}’</dd>
-</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">GET</span> \
+  <span class="s1">&#39;https://api.jibia.nl/api/do_search?query=</span><span class="si">{QUERY}</span><span class="s1">&amp;token=</span><span class="si">{TOKEN}</span><span class="s1">&amp;n=</span><span class="si">{N}</span><span class="s1">&#39;</span>
+</pre></div>
+</div>
 <dl class="glossary docutils">
 <dt id="term-query">query</dt>
 <dd>The query for the autocomplete.</dd>
@@ -206,6 +204,7 @@ To do this you first have to load your product feed into Jibia. You can do that 
 <p class="last">The amount of autocomplete results</p>
 </dd>
 </dl>
+<p>This request will return a list of products.</p>
 </div>
 
 
