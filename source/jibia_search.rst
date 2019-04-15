@@ -92,9 +92,9 @@ This request will return the products matching the query. The json with products
 	  The name/title of the product
 
     url
-      The product page url
+      The url suffix for the product
 
-    word
-	  The word the search matched on for this product
+    words
+	  A set of keywords that fit the query
 	  
 	  
