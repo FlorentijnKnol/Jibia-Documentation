@@ -32,7 +32,13 @@ Adding the following script tag to your html will make autocomplete results appe
 Styling autocomplete results
 ===============================
 
-The list of autocomplete results has the class name "search_auto". The products inside this list have "search_element product_element" as their class name. You can style the autocomplete results using these classnames.
+To use our default styling of autocomplete results, you can add the following tag to the bottom of your html file:
+
+::
+
+	<link rel ='stylesheet' href = 'https://cdn.jsdelivr.net/gh/stijnvalkenburg/Jibia-search//search.css'/>
+
+You can style the autocomplete results as well. The list of autocomplete results has the class name "search_auto". The products inside this list have "search_element product_element" as their class name.
 	  
 Manually handling autocomplete
 ===============================
@@ -59,19 +65,23 @@ The autocomplete can be called with the following request:
 This request will return the products matching the query. The json with products is formatted like this:
 
 ::
-
+	
 	{
-		"result": [
-			{
-				"product": {
-					"img_url": "https://jibia-shop.nl/media/test_product1.png",
-					"name": "Test Product 1",
-					"url": "https://jibia-shop.nl/products/test_product1.html"
-				},
-				"word": "Test"
-			}
-		]
-	}
+		"result": {
+			"products": [
+				{
+					"product": {
+						"img_url": "https://jibia-shop.nl/media/test_product1.png",
+						"name": "Test Product 1",
+						"url": "https://jibia-shop.nl/products/test_product1.html"
+					}
+				}
+			],
+			"words": [
+				"trefwoord"
+			]
+		}
+	}	
 	
 .. glossary::
 

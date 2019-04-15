@@ -169,7 +169,11 @@
 </div>
 <div class="section" id="styling-autocomplete-results">
 <h1>Styling autocomplete results<a class="headerlink" href="#styling-autocomplete-results" title="Permalink to this headline">¶</a></h1>
-<p>The list of autocomplete results has the class name “search_auto”. The products inside this list have “search_element product_element” as their class name. You can style the autocomplete results using these classnames.</p>
+<p>To use our default styling of autocomplete results, you can add the following tag to the bottom of your html file:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">link</span> <span class="n">rel</span> <span class="o">=</span><span class="s1">&#39;stylesheet&#39;</span> <span class="n">href</span> <span class="o">=</span> <span class="s1">&#39;https://cdn.jsdelivr.net/gh/stijnvalkenburg/Jibia-search//search.css&#39;</span><span class="o">/&gt;</span>
+</pre></div>
+</div>
+<p>You can style the autocomplete results as well. The list of autocomplete results has the class name “search_auto”. The products inside this list have “search_element product_element” as their class name.</p>
 </div>
 <div class="section" id="manually-handling-autocomplete">
 <h1>Manually handling autocomplete<a class="headerlink" href="#manually-handling-autocomplete" title="Permalink to this headline">¶</a></h1>
@@ -183,22 +187,26 @@ The autocomplete can be called with the following request:</p>
 <dt id="term-query">query</dt>
 <dd>The query for the autocomplete</dd>
 <dt id="term-2">token</dt>
-<dd><p class="first">Your authentication token</p>
-<p class="last">The amount of autocomplete results</p>
-</dd>
+<dd>Your authentication token</dd>
+<dt id="term-n">n</dt>
+<dd>The amount of autocomplete results</dd>
 </dl>
 <p>This request will return the products matching the query. The json with products is formatted like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-        <span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="p">[</span>
-                <span class="p">{</span>
-                        <span class="s2">&quot;product&quot;</span><span class="p">:</span> <span class="p">{</span>
-                                <span class="s2">&quot;img_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://jibia-shop.nl/media/test_product1.png&quot;</span><span class="p">,</span>
-                                <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Test Product 1&quot;</span><span class="p">,</span>
-                                <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://jibia-shop.nl/products/test_product1.html&quot;</span>
-                        <span class="p">},</span>
-                        <span class="s2">&quot;word&quot;</span><span class="p">:</span> <span class="s2">&quot;Test&quot;</span>
-                <span class="p">}</span>
-        <span class="p">]</span>
+        <span class="s2">&quot;result&quot;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;products&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="p">{</span>
+                                <span class="s2">&quot;product&quot;</span><span class="p">:</span> <span class="p">{</span>
+                                        <span class="s2">&quot;img_url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://jibia-shop.nl/media/test_product1.png&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Test Product 1&quot;</span><span class="p">,</span>
+                                        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;https://jibia-shop.nl/products/test_product1.html&quot;</span>
+                                <span class="p">}</span>
+                        <span class="p">}</span>
+                <span class="p">],</span>
+                <span class="s2">&quot;words&quot;</span><span class="p">:</span> <span class="p">[</span>
+                        <span class="s2">&quot;trefwoord&quot;</span>
+                <span class="p">]</span>
+        <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
@@ -206,12 +214,11 @@ The autocomplete can be called with the following request:</p>
 <dt id="term-img-url">img_url</dt>
 <dd>The product thumbnail url</dd>
 <dt id="term-name">name</dt>
-<dd><p class="first">The name/title of the product</p>
-<p>l
-The product page url</p>
-<p class="last">rd
-The word the search matched on for this product</p>
-</dd>
+<dd>The name/title of the product</dd>
+<dt id="term-url">url</dt>
+<dd>The product page url</dd>
+<dt id="term-word">word</dt>
+<dd>The word the search matched on for this product</dd>
 </dl>
 </div>
 
