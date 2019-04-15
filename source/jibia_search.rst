@@ -80,11 +80,11 @@ This request will return the products matching the query. The json with products
 
     name
 	  The name/title of the product
-	  
-	url
-	  The product page url
-	  
-	word
+
+    url
+      The product page url
+
+    word
 	  The word the search matched on for this product
 	  
 	  
