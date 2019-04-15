@@ -6,61 +6,38 @@
 Search
 ====================================   
 
-Simple HTML Example
+HTML implementation
 =============================
+
 This javascript example shows how to implement jibia's search bar. The search bar should have 'searchbar' as its id like this:
 
 ::
 
-	<input type="name" id = "searchbar" class = "zoekbalk" name="Search" placeholder="Zoekbalk van Jibia"></input>
+	<input type="name" id = "formSearch" class = "zoekbalk" name="Search" placeholder="Zoekbalk van Jibia"></input>
 	
-To show the autocomplete results you need an empty div under this input field.
+	
+Adding the following script tag to your html will make autocomplete results appear under this search bar.	
 
 ::
 
-    <div id="data"></div>
+	<script src="https://cdn.jsdelivr.net/gh/stijnvalkenburg/Jibia-search/search.js" token="cd2957a67f78a76a50c94666e21891"/>
 
-This div will be filled with the search results. To finalize the implementation add the following script tag to
-the bottom of your html document. Insert your own jibia search token in the token attribute:
-
-::
-
-	<script src="js/jibia_search.js" token="YOUR TOKEN HERE"/>
-
-The only thing left to do now is downloading jibia_search.js and adding this file to your js folder. Once this is done the
-search bar should be up and running. 
-
-Besides the token parameter, several other parameters can be set in the script tag above. These are detailed below.
-		
 .. glossary::
 
-    styled
-      This value can be set to true or false.  If this is set to true the search results will use predefined style. The parameter defaults to true.
-
-    result_classname
-      This parameter can be set to define the class name for autocomplete suggestions. This parameter defaults to "search_result".
-	  
-
-Example of manual autocomplete handling
-=============================
-
-If you wish to have more control over what happens under the hood, instead you can write the logic for this yourself.
-To do this you first have to load your product feed into Jibia. You can do that with the following request:
-
-::
-
-	curl -X POST \
-	  https://api.jibia.nl/api/initialize_search \
-	  -H 'Content-Type: application/json' \
-	  -d '{"feed_url": FEED_URL}'
+    token
+	  Your authentication token.
+	  	
 	
-.. glossary::
 
-    feed_url
-      The URL to your product feed.
+Styling autocomplete results
+===============================
+
+The list of autocomplete results has the class name "search_auto". The products inside this list have "search_element product_element" as their class name. You can style the autocomplete results using these classnames.
 	  
-This request returns a token you can use for the search. Save this token somewhere. It might take several minutes before your feed is fully initialized.
+Manually handling autocomplete
+===============================
 
+If you wish to have more control over how the products are being handles, you can write the logic for this yourself.
 The autocomplete can be called with the following request:
 
 ::
@@ -71,13 +48,43 @@ The autocomplete can be called with the following request:
 .. glossary::
 
     query
-      The query for the autocomplete.
+      The query for the autocomplete
 
     token
-	  The token from the response of your call to initialize_search
+	  Your authentication token
 	  
 	n
 	  The amount of autocomplete results
 	  
-This request will return a list of products.
-	 
+This request will return the products matching the query. The json with products is formatted like this:
+
+::
+
+	{
+		"result": [
+			{
+				"product": {
+					"img_url": "https://jibia-shop.nl/media/test_product1.png",
+					"name": "Test Product 1",
+					"url": "https://jibia-shop.nl/products/test_product1.html"
+				},
+				"word": "Test"
+			}
+		]
+	}
+	
+.. glossary::
+
+    img_url
+      The product thumbnail url
+
+    name
+	  The name/title of the product
+	  
+	url
+	  The product page url
+	  
+	word
+	  The word the search matched on for this product
+	  
+	  
