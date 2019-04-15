@@ -52,8 +52,8 @@ The autocomplete can be called with the following request:
 
     token
 	  Your authentication token
-	  
-	n
+  
+    n
 	  The amount of autocomplete results
 	  
 This request will return the products matching the query. The json with products is formatted like this:
